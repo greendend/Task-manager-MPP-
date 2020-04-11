@@ -1,6 +1,36 @@
 const express = require("express");
  
 const app = express();
+
+const mysql = require("mysql2");
+
+let taskName = new Array();
+let taskDesc = new Array();
+let taskDateTime = new Array();
+
+const connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  database: "task_manager",
+  password: "frhjgjkbc"
+});
+
+const sql = `SELECT * FROM tasks`;
+ 
+connection.query(sql, function(err, results) {
+    if(err) console.log(err);
+    const tasks = results;
+    //console.log(results);
+    for(let i=0; i < tasks.length; i++){
+        taskName[i] = tasks[i].name;
+        taskDesc[i] = tasks[i].description;
+        taskDateTime[i] = tasks[i].dt;
+      }
+    console.log("Получение данных из БД");
+});
+
+
+connection.end();
  
 app.set("view engine", "ejs");
 
@@ -11,8 +41,9 @@ app.use("/", function(request, response){
     response.render("tasks", {
         title: "Мои задачи",
         tasksVisible: true,
-        taskName: ["Учёба", "Спорт", "Хобби"],
-        taskDescription: ["Сделать дз", "Сделать упражнения на спину", "Поиграть на гитар"]
+        taskName,
+        taskDesc,
+        taskDateTime
     });
 });
 
