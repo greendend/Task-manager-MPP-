@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%=title %></title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+    <h1><%=title %> в EJS</h1>
+     
+    <% if(tasksVisible) {%>
+        <h3>Задачи</h3>
+        <ul>
+            <% for(var i=0; i<taskName.length;i++) {%>
+                <li><%=taskName[i] %></li>
+            <%} %>
+        </ul>
+    <% }else {%>
+        <h3>Задачи отсутствуют</h3>
+    <%} %>
+</body>
+<html>

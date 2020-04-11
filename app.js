@@ -1,39 +1,26 @@
-// подключение express
 const express = require("express");
-var bodyParser = require('body-parser');
-// создаем объект приложения
+ 
 const app = express();
+ 
+app.set("view engine", "ejs");
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-var artists = [
-    {
-        id: 1,
-        name: 'Green Day'
-    },
-    {
-        id: 2,
-        name: 'Metallica'
-    },
-    {
-        id: 3,
-        name: 'Твае вершы'
-    }
-]
-
-app.get("/artists", function(req, res){
-    res.send(artists);
-});
-
-// определяем обработчик для маршрута "/"
-app.get("/", function(request, response){
+app.use(express.static(__dirname + '/public'));
+ 
+app.use("/", function(request, response){
      
-    // отправляем ответ
-    response.send("<h2>Привет Expres!</h2>");
+    response.render("tasks", {
+        title: "Мои задачи",
+        tasksVisible: true,
+        taskName: ["Учёба", "Спорт", "Хобби"],
+        taskDescription: ["Сделать дз", "Сделать упражнения на спину", "Поиграть на гитар"]
+    });
 });
-// начинаем прослушивать подключения на 3000 порту
+
+app.use("/", function(request, response){
+     
+    response.send("Please follow the port 3001!");
+});
+
 app.listen(3001, function() {
-    console.log('Server was started');
+    console.log("Server was started");
 });
