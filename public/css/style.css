@@ -1,5 +1,10 @@
-h3 {
-	color: red;
+header {
+	height: 50px;
+	background-color: cadetblue;
+	color: white;
+	text-align: center;
+	margin-bottom: 30px;
+
 }
 
 .wrapper {
@@ -10,7 +15,7 @@ h3 {
 	box-sizing: border-box;
   }
 
-.taskView {
+.task {
 	height: 100px;
 	border-top: cadetblue 1px solid;
 }
@@ -30,4 +35,22 @@ p.taskDateTime {
 	color: chocolate;
 	font-size: xx-small;
 	text-align: right;
+}
+
+.column1 {
+	float: left;
+	width: 10%;
+}
+
+.column2 {
+	float: right;
+	width: 60%;
+}
+
+input {
+	margin-bottom: 5px;
+}
+
+form {
+	width: 160px;
 }
