@@ -38,6 +38,21 @@ connection.end();
 app.set("view engine", "ejs");
 
 app.use(express.static(__dirname + '/public'));
+
+// Обратите внимание на используемый путь. Именно он задается в атрибуте action формы
+app.post('/tasks', urlencodedParser, function(req, res) {
+    // Объект req.body содержит данные из переданной формы
+    if (!req.body) return console.log("idi nahui");
+    console.log(req.body);
+
+    res.render("tasks", {
+        title: "Мои задачи",
+        tasksVisible: true,
+        taskName,
+        taskDesc,
+        taskDateTime
+    });
+});
  
 app.use("/", function(request, response){
      
@@ -50,13 +65,6 @@ app.use("/", function(request, response){
     });
 });
 
-// Обратите внимание на используемый путь. Именно он задается в атрибуте action формы
-app.post('/form_data', urlencodedParser, function(req, res) {
-    // Объект req.body содержит данные из переданной формы
-    if (!req.body) return console.log("idi nahui");
-    console.log(req.body);
-    res.render("updated");
-});
 
 app.use("/", function(request, response){
      
