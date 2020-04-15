@@ -52,5 +52,32 @@ input {
 }
 
 form {
-	width: 160px;
+	width: 170px;
+	border: cadetblue 1px solid;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+button {
+	background-color :cadetblue;
+	color: white;
+	border-color: cornflowerblue;
+	border-radius: 5px;
+	margin-top: 10px;
+	width: 140px;
+	height: 30px;
+	text-align: center;
+}
+
+.form_taskName {
+	width: 165px;
+}
+
+.form_taskDescription {
+	height: 60px;
+	width: 165px;
+}
+
+.form_taskDateTime {
+	width: 165px;
 }

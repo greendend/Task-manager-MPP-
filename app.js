@@ -7,6 +7,8 @@ const mysql = require("mysql2");
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+var count = 0;
+
 let taskName = new Array();
 let taskDesc = new Array();
 let taskDateTime = new Array();
@@ -28,6 +30,7 @@ connection.query(sql, function(err, results) {
         taskName[i] = tasks[i].name;
         taskDesc[i] = tasks[i].description;
         taskDateTime[i] = tasks[i].dt;
+        count = i;
       }
     console.log("Получение данных из БД");
 });
@@ -44,6 +47,29 @@ app.post('/tasks', urlencodedParser, function(req, res) {
     // Объект req.body содержит данные из переданной формы
     if (!req.body) return console.log("idi nahui");
     console.log(req.body);
+
+    count++;
+    taskName[count] = req.body.form_taskName;
+    taskDesc[count] = req.body.form_taskDescription;
+    taskDateTime[count] = req.body.form_taskDateTime;
+
+    const connection = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        database: "task_manager",
+        password: "frhjgjkbc"
+      });
+
+    const sqlInsert = `INSERT INTO tasks(name, description, dt) VALUES('${req.body.form_taskName}', '${req.body.form_taskDescription}', '${req.body.form_taskDateTime}')`;
+
+    connection.query(sqlInsert, function(err, results) {
+    if(err) console.log(err);
+    console.log(results);
+    });
+
+    req.body = null;
+    connection.end();
+
 
     res.render("tasks", {
         title: "Мои задачи",
