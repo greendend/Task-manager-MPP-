@@ -9,6 +9,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 var count = 0;
 
+let taskId = new Array();
 let taskName = new Array();
 let taskDesc = new Array();
 let taskDateTime = new Array();
@@ -24,9 +25,10 @@ const sql = `SELECT * FROM tasks`;
  
 connection.query(sql, function(err, results) {
     if(err) console.log(err);
-    const tasks = results;
+    var tasks = results;
     //console.log(results);
     for(let i=0; i < tasks.length; i++){
+        taskId[i] = i+1;
         taskName[i] = tasks[i].name;
         taskDesc[i] = tasks[i].description;
         taskDateTime[i] = tasks[i].dt;
@@ -43,9 +45,9 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));
 
 // Обратите внимание на используемый путь. Именно он задается в атрибуте action формы
-app.post('/tasks', urlencodedParser, function(req, res) {
+app.post('/tasks_insert', urlencodedParser, function(req, res) {
     // Объект req.body содержит данные из переданной формы
-    if (!req.body) return console.log("idi nahui");
+    if (!req.body) return console.log("500");
     console.log(req.body);
 
     count++;
@@ -74,10 +76,78 @@ app.post('/tasks', urlencodedParser, function(req, res) {
     res.render("tasks", {
         title: "Мои задачи",
         tasksVisible: true,
+        taskId,
         taskName,
         taskDesc,
         taskDateTime
     });
+});
+
+app.post('/tasks_delete', urlencodedParser, function(req, res) {
+    // Объект req.body содержит данные из переданной формы
+    if (!req.body) return console.log("500");
+    console.log(req.body);
+
+    //count--;
+
+    const connection = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        database: "task_manager",
+        password: "frhjgjkbc"
+      });
+
+    var tName = req.body.form_taskName;
+    console.log(req.body.form_taskId);
+    console.log(taskName[req.body.form_taskId-1]);
+    if (req.body.form_taskId !== "" && Number(req.body.form_taskId) <= count+1 && Number(req.body.form_taskId) > 0) { // && req.body.form_taskId < count && req.body.form_taskId > 0
+        
+        tName = taskName[req.body.form_taskId-1];
+        console.log(tName);
+    }
+    
+    const sqlDelete = `DELETE FROM tasks WHERE name='${tName}'`;
+
+    connection.query(sqlDelete, function(err, results) {
+    if(err) console.log(err);
+    console.log(results);
+    });
+
+    req.body = null; 
+    //connection.end();
+
+    const sqlUp = `SELECT * FROM tasks`;
+
+    taskId = [];
+    taskName = [];
+    taskDesc = [];
+    taskDateTime = [];
+
+
+    console.log("Получение обновленных данных из БД");
+    connection.query(sqlUp, function(err, results) {
+    if(err) console.log(err);
+    var tasks = results;
+    //console.log(results);
+    for(let i=0; i < tasks.length; i++){
+        taskId[i] = i+1;
+        taskName[i] = tasks[i].name;
+        taskDesc[i] = tasks[i].description;
+        taskDateTime[i] = tasks[i].dt;
+        count = i;
+      }
+      res.render("tasks", {
+        title: "Мои задачи",
+        tasksVisible: true,
+        taskId,
+        taskName,
+        taskDesc,
+        taskDateTime
+    });
+    
+    });
+    connection.end();
+
 });
  
 app.use("/", function(request, response){
@@ -85,6 +155,7 @@ app.use("/", function(request, response){
     response.render("tasks", {
         title: "Мои задачи",
         tasksVisible: true,
+        taskId,
         taskName,
         taskDesc,
         taskDateTime
