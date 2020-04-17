@@ -10,7 +10,7 @@
     <div class="wrapper">
         <div class="form_insert column1">
             <!-- Обратите внимание на атрибут action -->
-            <form action="/tasks_insert" method="post">
+            <form class="c1" action="/tasks_insert" method="post">
                 <label for="form_task">Название задачи</label><input class="form_taskName" id="form_task" type="text" name="form_taskName" /> </br>
                 <label for="form_task">Описание задачи</label><input class="form_taskDescription" id="form_task" type="text" name="form_taskDescription" /> </br>
                 <label for="form_task">Дата/Время</label><input class="form_taskDateTime" id="form_task" type="datetime-local" name="form_taskDateTime" /> <br>
@@ -18,11 +18,25 @@
                 <button type="submit" value="Добавить задачу">Добавить задачу</button>
             </form>
 
-            <form action="/tasks_delete" method="post">
+            <form class="c1" action="/tasks_delete" method="post">
                 <label for="form_task">Номер задачи </label><input class="form_taskId" id="form_task" type="text" name="form_taskId" /> </br>
                 <label for="form_task">Название задачи</label><input class="form_taskName" id="form_task" type="text" name="form_taskName" /> </br>               
                 <!-- Другие поля добавляются аналогично -->
                 <button type="submit" value="Удалить задачу">Удалить задачу</button>
+            </form>
+
+            <form class="c2" action="/tasks_update" method="post">
+                <label for="form_task">Название задачи</label><input class="form_taskName" id="form_task" type="text" name="form_taskName" /> </br>
+                <label for="form_task">Описание задачи</label><input class="form_taskDescription" id="form_task" type="text" name="form_taskDescription" /> </br>
+                <label for="form_task">Дата/Время</label><input class="form_taskDateTime" id="form_task" type="datetime-local" name="form_taskDateTime" /> <br>
+                <!-- Другие поля добавляются аналогично -->
+                <button type="submit" value="Добавить задачу">Обновить задачу</button>
+            </form>
+
+            <form class="c2" action="/tasks_sort" method="post">
+                <input type="checkbox" name="optionName" value="checkName">по названию<Br>
+                <input type="checkbox" name="optionDateTime" value="checkDateTime">по дате<Br>
+                <button type="submit" value="Добавить задачу">Отсортировать</button>
             </form>
 
         </div>

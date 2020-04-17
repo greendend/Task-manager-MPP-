@@ -39,12 +39,13 @@ p.taskDateTime {
 
 .column1 {
 	float: left;
-	width: 10%;
+	width: 30%;
 }
+
 
 .column2 {
 	float: right;
-	width: 60%;
+	width: 70%;
 }
 
 input {
