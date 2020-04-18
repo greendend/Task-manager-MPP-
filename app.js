@@ -70,10 +70,29 @@ app.post('/tasks_insert', urlencodedParser, function(req, res) {
     });
 
     req.body = null;
-    connection.end();
+
+    
+    const sqlUp = `SELECT * FROM tasks`;
+
+    taskId = [];
+    taskName = [];
+    taskDesc = [];
+    taskDateTime = [];
 
 
-    res.render("tasks", {
+    console.log("Получение обновленных данных из БД");
+    connection.query(sqlUp, function(err, results) {
+    if(err) console.log(err);
+    var tasks = results;
+    //console.log(results);
+    for(let i=0; i < tasks.length; i++){
+        taskId[i] = i+1;
+        taskName[i] = tasks[i].name;
+        taskDesc[i] = tasks[i].description;
+        taskDateTime[i] = tasks[i].dt;
+        count = i;
+      }
+      res.render("tasks", {
         title: "Мои задачи",
         tasksVisible: true,
         taskId,
@@ -81,6 +100,9 @@ app.post('/tasks_insert', urlencodedParser, function(req, res) {
         taskDesc,
         taskDateTime
     });
+    
+    });
+    connection.end();
 });
 
 app.post('/tasks_delete', urlencodedParser, function(req, res) {
