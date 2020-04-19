@@ -18,7 +18,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   database: "task_manager",
-  password: "frhjgjkbc"
+  password: ""
 });
 
 const sql = `SELECT * FROM tasks`;
@@ -59,7 +59,7 @@ app.post('/tasks_insert', urlencodedParser, function(req, res) {
         host: "localhost",
         user: "root",
         database: "task_manager",
-        password: "frhjgjkbc"
+        password: ""
       });
 
     const sqlInsert = `INSERT INTO tasks(name, description, dt) VALUES('${req.body.form_taskName}', '${req.body.form_taskDescription}', '${req.body.form_taskDateTime}')`;
@@ -116,7 +116,7 @@ app.post('/tasks_delete', urlencodedParser, function(req, res) {
         host: "localhost",
         user: "root",
         database: "task_manager",
-        password: "frhjgjkbc"
+        password: ""
       });
 
     var tName = req.body.form_taskName;
@@ -183,7 +183,7 @@ app.post('/tasks_update', urlencodedParser, function(req, res) {
         host: "localhost",
         user: "root",
         database: "task_manager",
-        password: "frhjgjkbc"
+        password: ""
       });
 
     var tName = req.body.form_taskName;
@@ -243,7 +243,7 @@ app.post('/tasks_sort', urlencodedParser, function(req, res) {
         host: "localhost",
         user: "root",
         database: "task_manager",
-        password: "frhjgjkbc"
+        password: ""
       });
 
     var checkOption = '';
