@@ -18,6 +18,3 @@
 1. ## Работу выполнил Смирнов Алексей (гр. 751006) - КОНТАКТНЫЕ ДАННЫЕ:
     1. Telegram: [@greendend](https://t.me/Greendend)
     1. VK: [Алексей Смирнов](https://vk.com/greendend)
-    1. GitHub: [greendend](https://github.com/greendend)
-    1. Instagram: [smirnoff.y17](https://www.instagram.com/smirnoff.y17/)
-    1. *+375291081624*
